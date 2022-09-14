@@ -497,7 +497,7 @@ void Scheduler::registerLayer(Layer* layer) {
     scheduler::LayerHistory::LayerVoteType voteType;
     const auto windowType = layer->getWindowType();
 
-    if (!mFeatures.test(Feature::kContentDetection ||
+    if (!mFeatures.test(Feature::kContentDetection) ||
         windowType == WindowType::STATUS_BAR ||
         windowType == WindowType::SYSTEM_ALERT ||
         windowType == WindowType::TOAST ||
@@ -509,7 +509,7 @@ void Scheduler::registerLayer(Layer* layer) {
         windowType == WindowType::VOLUME_OVERLAY ||
         windowType == WindowType::NAVIGATION_BAR_PANEL) {
         voteType = scheduler::LayerHistory::LayerVoteType::NoVote;
-    } else if (windowType == WindowInfo::Type::NOTIFICATION_SHADE) {
+    } else if (windowType == WindowType::NOTIFICATION_SHADE) {
         // Enforce max refresh rate for notification pulldown
         voteType = scheduler::LayerHistory::LayerVoteType::Max;
     } else if (windowType == WindowType::WALLPAPER) {
